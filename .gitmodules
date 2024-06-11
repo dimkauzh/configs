@@ -1,0 +1,12 @@
+[submodule "posh-themes"]
+	path = posh-themes
+	url = https://github.com/dimkauzh/posh-themes.git
+[submodule "nvim-config"]
+	path = nvim-config
+	url = https://github.com/dimkauzh/nvim-config.git
+[submodule "kitty-config"]
+	path = kitty-config
+	url = https://github.com/dimkauzh/kitty-config.git
+[submodule "themes"]
+	path = themes
+	url = https://github.com/dimkauzh/themes.git
