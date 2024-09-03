@@ -1,0 +1,7 @@
+/** Configured For Applets **/
+
+configuration {
+  show-icons:         true;
+  icon-theme:         "Gruvbox-Plus-Dark";
+}
+@theme "/usr/share/rofi/themes/gruvbox-dark-soft.rasi"

@@ -1,0 +1,164 @@
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+# Set mod key (Mod1=<Alt>, Mod4=<Super>)
+set $mod Mod4
+set $alt Mod1
+set $ctrl Control
+
+# Default font
+font pango:Noto Sans 10
+
+# i3 statup and sleep initialization
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- mantablockscreen -sc --nofork
+
+# System Audio Controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +5 --max-volume 150 #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5 --max-volume 150 #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# System Brightness Controls
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+
+# kill focused window
+bindsym $mod+q kill
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in different orientation
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# toggle fullschreen mode
+bindsym $mod+Shift+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+e layout toggle split
+
+# toggle floating mode
+bindsym $mod+f floating toggle
+
+# define workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+
+# move to different workspaces
+bindsym $mod+period workspace next_on_output
+bindsym $mod+comma workspace prev_on_output
+
+# move focused container to different workspaces
+bindsym $mod+Shift+period move container to workspace next
+bindsym $mod+Shift+comma move container to workspace prev
+
+# moving focus between windows, ment for tabbed mode
+bindsym $alt+Tab focus right
+bindsym $alt+Shift+Tab focus left
+
+# screenshotting
+bindsym Print exec flameshot gui -c
+bindsym $mod+Print exec maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+bindsym $mod+Shift+Print exec flameshot full -c -p /home/dima/Pictures/Screenshots
+
+# run rofi
+bindsym $mod+space exec rofi -show drun
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# System modes
+mode "system" {
+  # power modes
+  bindsym l exec --no-startup-id i3lock-fancy -gp, mode "default"
+  bindsym e exec --no-startup-id i3-msg exit, mode "default"
+  bindsym p exec --no-startup-id systemctl suspend, mode "default"  
+  bindsym r exec --no-startup-id systemctl reboot, mode "default"
+  bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+
+  # escaping current mode
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym $mod+Shift+Escape mode "default"
+}
+
+bindsym $mod+Shift+Escape mode "system"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+  # usig letters
+  bindsym j resize shrink width 5 px or 5 ppt
+  bindsym k resize grow height 5 px or 5 ppt
+  bindsym l resize shrink height 5 px or 5 ppt
+  bindsym semicolon resize grow width 5 px or 5 ppt
+
+  # using arrows
+  bindsym Left resize shrink width 5 px or 5 ppt
+  bindsym Down resize grow height 5 px or 5 ppt
+  bindsym Up resize shrink height 5 px or 5 ppt
+  bindsym Right resize grow width 5 px or 5 ppt
+
+  # escape current mode
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# System colors
+# class                 border  backgr  text    indicator child_border
+client.focused          #a9b665 #a9b665 #32302f #a9b665   #a9b665
+client.unfocused        #32302f #32302f #dfbf8e #32302f   #32302f
+client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
+
+# window modifications
+title_align center
+for_window [class="^.*"] border pixel 2
+tiling_drag modifier titlebar
+floating_modifier $mod
+default_orientation horizontal
+
+## around window gaps
+gaps inner 5
+gaps outer 5
+
+# Startup apps
+exec --no-startup-id xsettingsd
+exec --no-startup-id dunst
+exec --no-startup-id lxqt-powermanagement
+exec --no-startup-id lxqt-policykit-agent
+exec --no-startup-id polybar
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id xclip
+exec --no-startup-id sleep 1 && copyq
+exec --no-startup-id /home/$USER/.config/i3/scripts/background.sh
+exec --no-startup-id xeventbind resolution /home/$USER/.config/i3/scripts/background.sh 
