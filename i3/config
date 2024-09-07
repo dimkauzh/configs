@@ -15,8 +15,10 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- mantablockscreen -sc --nofork
 
 # System Audio Controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +5 --max-volume 150 #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5 --max-volume 150 #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id zsh -c "pactl set-sink-mute @DEFAULT_SINK@ 0 && pulsemixer --change-volume +5 --max-volume 150"
+bindsym XF86AudioLowerVolume exec --no-startup-id zsh -c "pactl set-sink-mute @DEFAULT_SINK@ 0 && pulsemixer --change-volume -5 --max-volume 150"
+#bindsym XF86AudioRaiseVolume exec --no-startup-id pulsemixer --change-volume +5 --max-volume 150 #increase sound volume
+#bindsym XF86AudioLowerVolume exec --no-startup-id pulsemixer --change-volume -5 --max-volume 150 #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # System Brightness Controls
@@ -84,12 +86,15 @@ bindsym $alt+Tab focus right
 bindsym $alt+Shift+Tab focus left
 
 # screenshotting
-bindsym Print exec flameshot gui -c
+bindsym Print exec flameshot gui -c -p /home/$USER/Pictures/Screenshots
 bindsym $mod+Print exec maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym $mod+Shift+Print exec flameshot full -c -p /home/dima/Pictures/Screenshots
+bindsym $mod+Shift+Print exec flameshot full -c -p /home/$USER/Pictures/Screenshots
 
 # run rofi
 bindsym $mod+space exec rofi -show drun
+
+# reset monitor settings
+bindsym $mod+Shift+d exec /home/$USER/.config/i3/scripts/reset_monitor.sh
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -141,7 +146,8 @@ client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
 
 # window modifications
 title_align center
-for_window [class="^.*"] border pixel 2
+default_border pixel 4
+for_window [class="^.*"] border pixel 1
 tiling_drag modifier titlebar
 floating_modifier $mod
 default_orientation horizontal
@@ -151,6 +157,7 @@ gaps inner 5
 gaps outer 5
 
 # Startup apps
+exec --no-startup-id picom
 exec --no-startup-id xsettingsd
 exec --no-startup-id dunst
 exec --no-startup-id lxqt-powermanagement

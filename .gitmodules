@@ -10,3 +10,6 @@
 [submodule "themes"]
 	path = themes
 	url = https://github.com/dimkauzh/themes.git
+[submodule "nvim"]
+	path = nvim
+	url = https://github.com/dimkauzh/nvim-config
