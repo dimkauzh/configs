@@ -15,6 +15,7 @@ export ZED_WINDOW_DECORATIONS=server
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT_STYLE_OVERRIDE=qt5ct-style
 export GTK_THEME=Gruvbox-Dark-Soft
+export GTK_ICON_THEME="Gruvbox-Plus-Dark"
 export TERM=xterm-256color
 
 # Different folders

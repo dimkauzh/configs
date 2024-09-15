@@ -4,4 +4,4 @@ configuration {
   show-icons:         true;
   icon-theme:         "Gruvbox-Plus-Dark";
 }
-@theme "/usr/share/rofi/themes/gruvbox-dark-soft.rasi"
+@theme "~/.config/rofi/themes/gruvbox/gruvbox-dark-hard.rasi"

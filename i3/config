@@ -47,12 +47,12 @@ bindsym $mod+v split v
 bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Shift+s layout stacking
-bindsym $mod+Shift+t layout tabbed
-bindsym $mod+Shift+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
 
 # toggle floating mode
-bindsym $mod+f floating toggle
+bindsym $mod+f floating toggle, move position center, resize set 1000 600
 
 # define workspaces
 set $ws1 "1"
@@ -99,12 +99,12 @@ bindsym $mod+space exec rofi -show drun
 bindsym $mod+Shift+d exec /home/$USER/.config/i3/scripts/reset_monitor.sh
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+r reload
 
 # System modes
 mode "system" {
   # power modes
-  bindsym l exec --no-startup-id i3lock-fancy -gp, mode "default"
+  bindsym l exec --no-startup-id mantablockscreen -sc, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
   bindsym p exec --no-startup-id systemctl suspend, mode "default"  
   bindsym r exec --no-startup-id systemctl reboot, mode "default"
@@ -113,10 +113,10 @@ mode "system" {
   # escaping current mode
   bindsym Escape mode "default"
   bindsym Return mode "default"
-  bindsym $mod+Shift+Escape mode "default"
+  bindsym $mod+Escape mode "default"
 }
 
-bindsym $mod+Shift+Escape mode "system"
+bindsym $mod+Escape mode "system"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -138,13 +138,13 @@ mode "resize" {
   bindsym $mod+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+Shift+r mode "resize"
 
 # System colors
 # class                 border  backgr  text    indicator child_border
-client.focused          #a9b665 #a9b665 #32302f #a9b665   #a9b665
-client.unfocused        #32302f #32302f #dfbf8e #32302f   #32302f
-client.focused_inactive #32302f #32302f #dfbf8e #32302f   #32302f
+client.focused          #b8bb26 #b8bb26 #32302f #b8bb26 #b8bb26
+client.unfocused        #32302f #32302f #dfbf8e #32302f #32302f
+client.focused_inactive #b8bb26 #b8bb26 #dfbf8e #b8bb26 #b8bb26
 
 # window modifications
 title_align center
@@ -155,7 +155,7 @@ floating_modifier $mod
 default_orientation horizontal
 
 ## around window gaps
-gaps inner 9
+gaps inner 7
 gaps outer 1
 
 # Startup apps
