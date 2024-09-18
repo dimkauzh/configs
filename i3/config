@@ -52,7 +52,7 @@ bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle floating mode
-bindsym $mod+f floating toggle, move position center, resize set 1000 600
+bindsym $mod+f floating toggle, resize set 1000 600, move position center,
 
 # define workspaces
 set $ws1 "1"
@@ -88,15 +88,21 @@ bindsym $alt+Tab focus right
 bindsym $alt+Shift+Tab focus left
 
 # screenshotting
-bindsym Print exec flameshot gui -c -p /home/$USER/Pictures/Screenshots
+bindsym Print exec flameshot gui -c -p ~/Pictures/Screenshots
 bindsym $mod+Print exec maim --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
-bindsym $mod+Shift+Print exec flameshot full -c -p /home/$USER/Pictures/Screenshots
+bindsym $mod+Shift+Print exec flameshot full -c -p ~/Pictures/Screenshots
 
 # run rofi
 bindsym $mod+space exec rofi -show drun
 
 # reset monitor settings
-bindsym $mod+Shift+d exec /home/$USER/.config/i3/scripts/reset_monitor.sh
+bindsym $mod+x exec ~/.config/i3/scripts/reset_monitor.sh
+
+# toggle polybar
+bindsym $mod+p exec polybar-msg cmd toggle
+
+# restart picom
+bindsym $mod+Shift+p exec --no-startup-id "pkill picom; picom"
 
 # reload the configuration file
 bindsym $mod+r reload
@@ -143,19 +149,22 @@ bindsym $mod+Shift+r mode "resize"
 # System colors
 # class                 border  backgr  text    indicator child_border
 client.focused          #b8bb26 #b8bb26 #32302f #b8bb26 #b8bb26
-client.unfocused        #32302f #32302f #dfbf8e #32302f #32302f
-client.focused_inactive #b8bb26 #b8bb26 #dfbf8e #b8bb26 #b8bb26
+client.unfocused        #282828 #282828 #dfbf8e #282828 #282828
+client.focused_inactive #282828 #282828 #dfbf8e #282828 #282828
 
 # window modifications
 title_align center
-default_border pixel 2
-for_window [class="^.*"] border pixel 2
 tiling_drag modifier titlebar
 floating_modifier $mod
 default_orientation horizontal
 
+# borders
+default_border pixel 2
+default_floating_border pixel 2
+for_window [class="^.*"] border pixel 2
+
 ## around window gaps
-gaps inner 7
+gaps inner 9
 gaps outer 1
 
 # Startup apps
@@ -169,5 +178,5 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id xclip
 exec --no-startup-id sleep 1 && copyq
-exec --no-startup-id /home/$USER/.config/i3/scripts/background.sh
-exec --no-startup-id xeventbind resolution /home/$USER/.config/i3/scripts/background.sh 
+exec --no-startup-id ~/.config/i3/scripts/background.sh
+exec --no-startup-id xeventbind resolution ~/.config/i3/scripts/display_redraw.sh
