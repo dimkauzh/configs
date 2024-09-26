@@ -74,9 +74,8 @@ case $1 in
         brightnessctl set $brightness_step%-
         show_brightness_notif
         ;;
-    
+
     *)
         notify-send "Error" "Invalid argument. Use 'volume_up', 'volume_down', 'brightness_up', or 'brightness_down'."
         ;;
 esac
-

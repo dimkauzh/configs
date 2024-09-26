@@ -53,6 +53,7 @@
 	hide_duplicate_count = true
 	show_indicators = false
 	icon_position = left
+	default_icon = " "
 	min_icon_size = 16
 	max_icon_size = 96
 	enable_recursive_icon_lookup=true
@@ -84,7 +85,6 @@
 	background = "#32302f"
 	foreground = "#a89984"
 	frame_color = "#cc241d"
-	timeout = 0
+	timeout = 6
 
 # vim: ft=cfg
-

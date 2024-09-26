@@ -12,12 +12,16 @@ font pango:Noto Sans 10
 
 # i3 statup and sleep initialization
 exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id xss-lock --transfer-sleep-lock -- mantablockscreen -sc --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- mantablockscreen --nofork
 
 # System Audio Controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh volume_up
 bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh volume_down
 bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh volume_mute
+
+# Play and pause keys
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
 
 # System Brightness Controls
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volume_brightness.sh brightness_up
@@ -69,11 +73,11 @@ bindsym $mod+4 workspace number $ws4
 bindsym $mod+5 workspace number $ws5
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+1 move container to workspace number $ws1, workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2, workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3, workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4, workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5, workspace number $ws5
 
 # move to different workspaces
 bindsym $mod+period workspace next_on_output
@@ -102,7 +106,7 @@ bindsym $mod+x exec ~/.config/i3/scripts/reset_monitor.sh
 bindsym $mod+p exec polybar-msg cmd toggle
 
 # restart picom
-bindsym $mod+Shift+p exec --no-startup-id "pkill picom; picom"
+bindsym $mod+Shift+p exec --no-startup-id "pkill picom; ~/.config/i3/scripts/picom.sh"
 
 # reload the configuration file
 bindsym $mod+r reload
@@ -110,7 +114,7 @@ bindsym $mod+r reload
 # System modes
 mode "system" {
   # power modes
-  bindsym l exec --no-startup-id mantablockscreen -sc, mode "default"
+  bindsym l exec --no-startup-id mantablockscreen, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
   bindsym p exec --no-startup-id systemctl suspend, mode "default"  
   bindsym r exec --no-startup-id systemctl reboot, mode "default"
@@ -168,7 +172,7 @@ gaps inner 9
 gaps outer 1
 
 # Startup apps
-exec --no-startup-id picom
+exec --no-startup-id ~/.config/i3/scripts/picom.sh
 exec --no-startup-id xsettingsd
 exec --no-startup-id dunst
 exec --no-startup-id lxqt-powermanagement

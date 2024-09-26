@@ -1,2 +1,2 @@
 /home/$USER/.config/i3/scripts/background.sh
-pkill picom; picom
+pkill picom; ~/.config/i3/scripts/picom.sh
